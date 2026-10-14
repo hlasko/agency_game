@@ -1,0 +1,220 @@
+// Demo brief: one day before the pitch for a fictional dairy brand.
+// Everything the designer tunes lives in this file.
+(
+    tuning: (
+        day_minutes: 480,      // 9:00 -> 17:00, pitch at the end of the day
+        talk_minutes: 15,
+        coffee_minutes: 30,
+        study_minutes: 30,
+        feedback_rounds: 3,
+        accept_threshold: 4,   // average client satisfaction needed to buy
+        award_edge: 9,         // edge at or above this = award shot
+    ),
+    brief: (
+        client: "Mleczarnia Zorza",
+        product: "Kefir Zorza",
+        task: "Odmłodzić kefir. Klient chce, żeby 20-latkowie zaczęli go kupować, ale nie chce stracić obecnych klientów.",
+        budget: 6,
+        personas: [
+            (
+                id: "marta", name: "Marta Wilk", title: "CMO",
+                edge_weight: 2, appeal_weight: 1, cost_weight: 0,
+                hot: ["humor", "odwaga"], peeves: ["celebryta"],
+                objection: "To jest… poprawne. Ale gdzie tu jest coś, o czym ludzie będą gadać?",
+            ),
+            (
+                id: "zdzislaw", name: "Zdzisław Kowal", title: "Dyrektor zakupów",
+                edge_weight: 0, appeal_weight: 1, cost_weight: 2,
+                hot: ["prosty"], peeves: ["eksperyment"],
+                objection: "Ja tu widzę ryzyko i koszty. Da się to zrobić prościej?",
+            ),
+            (
+                id: "henryk", name: "Henryk Zorza", title: "Prezes i właściciel",
+                edge_weight: 0, appeal_weight: 2, cost_weight: 0,
+                hot: ["tradycja", "rodzina"], peeves: ["ironia"],
+                objection: "Mój dziadek zakładał tę firmę. Nie wiem, czy to jest nasza marka.",
+            ),
+        ],
+        cards: [
+            // ---------------- Insights
+            (
+                id: "ins_sunday", slot: Insight, title: "Kefir to niedzielny rytuał po imprezie",
+                edge: 3, appeal: 1, cost: 0, tags: ["humor", "odwaga"],
+                facets: {
+                    Strategist: "Social listening się zgadza: wzmianki o kefirze skaczą w niedziele rano.",
+                    Creative: "Z tego da się zrobić coś zabawnego i trochę bezczelnego.",
+                    Account: "Prezes może się skrzywić na słowo 'impreza'. Marta się uśmiechnie.",
+                    Producer: "Nic nie kosztuje, to tylko kąt.",
+                },
+            ),
+            (
+                id: "ins_genz", slot: Insight, title: "Młodzi w ogóle nie piją nabiału",
+                edge: 1, appeal: 2, cost: 0, tags: ["prosty"],
+                flaw: Some("Źródło to badanie sprzed lat. Dziś kategoria wygląda inaczej, klient to wie."),
+                facets: {
+                    Strategist: "Hm, skąd te dane? Coś mi tu nie gra.",
+                    Creative: "Mało nośne. Problem bez napięcia.",
+                    Account: "Klient lubi 'twarde dane'. Na slajdzie wygląda solidnie.",
+                    Producer: "Zero kosztów.",
+                },
+            ),
+            (
+                id: "ins_grandma", slot: Insight, title: "Smak, który pamiętasz od babci",
+                edge: 1, appeal: 3, cost: 0, tags: ["tradycja", "rodzina"],
+                facets: {
+                    Strategist: "Prawdziwe, ale ograne. Każda mleczarnia to mówi.",
+                    Creative: "Nuda. Widziałem to sto razy.",
+                    Account: "Prezes się wzruszy. Bezpieczne.",
+                    Producer: "Zero kosztów.",
+                },
+            ),
+            // ---------------- Lenses
+            (
+                id: "lens_irony", slot: Lens, title: "Autoironia marki",
+                edge: 4, appeal: 0, tags: ["humor", "ironia"], cost: 0,
+                facets: {
+                    Strategist: "Działa na młodych, ale wymaga marki, która umie się z siebie śmiać.",
+                    Creative: "To jest to. Tu są nagrody.",
+                    Account: "Ryzyko: nie wiemy, jak zarząd reaguje na żarty z marki.",
+                    Producer: "Tanie w realizacji.",
+                },
+            ),
+            (
+                id: "lens_tribute", slot: Lens, title: "Hołd dla rolników",
+                edge: 3, appeal: 3, tags: ["tradycja", "rodzina"], cost: 1,
+                facets: {
+                    Strategist: "Oddajesz scenę komuś innemu i marka zyskuje na wiarygodności.",
+                    Creative: "Może być mocne, jeśli nie zrobimy z tego laurki.",
+                    Account: "Pasuje do rodzinnej historii firmy.",
+                    Producer: "Trzeba pojechać na wieś, jeden dzień zdjęciowy.",
+                },
+            ),
+            (
+                id: "lens_challenge", slot: Lens, title: "Wyzwanie: 30 dni z kefirem",
+                edge: 2, appeal: 2, tags: ["odwaga", "eksperyment"], cost: 2,
+                facets: {
+                    Strategist: "Mechanika partycypacyjna, ale wymaga ciągłego podtrzymania.",
+                    Creative: "OK, ale już było w innych kategoriach.",
+                    Account: "Klient zapyta o mierzalność. Mamy odpowiedź.",
+                    Producer: "Długa obsługa, community management przez miesiąc.",
+                },
+            ),
+            // ---------------- Formats
+            (
+                id: "fmt_celeb", slot: Format, title: "Spot TV z celebrytą",
+                edge: 1, appeal: 3, cost: 5, tags: ["celebryta"],
+                facets: {
+                    Strategist: "Zasięg tak, sens nie. Twarz przykryje markę.",
+                    Creative: "Bez pomysłu to tylko droga twarz.",
+                    Account: "Zarząd lubi znane twarze. Z marketingiem różnie.",
+                    Producer: "Gaża plus produkcja TV. Zjada prawie cały budżet.",
+                },
+            ),
+            (
+                id: "fmt_ooh", slot: Format, title: "Outdoor z jednym zdaniem",
+                edge: 3, appeal: 1, cost: 2, tags: ["prosty", "odwaga"],
+                facets: {
+                    Strategist: "Wymaga jednego ostrego zdania. Jeśli je mamy, działa.",
+                    Creative: "Lubię. Copy musi być zabójcze.",
+                    Account: "Zakupy kochają takie rzeczy: jasne, policzalne.",
+                    Producer: "Tanio i szybko.",
+                },
+            ),
+            (
+                id: "fmt_tiktok", slot: Format, title: "Seria TikTok z twórcami",
+                edge: 3, appeal: 1, cost: 3, tags: ["humor", "eksperyment"],
+                facets: {
+                    Strategist: "Trafia w grupę, ale trudno kontrolować przekaz.",
+                    Creative: "Fajne, jeśli twórcy dostaną wolność.",
+                    Account: "Ktoś po stronie klienta na pewno powie 'a to nie wpadka?'.",
+                    Producer: "Średni koszt, sporo koordynacji.",
+                },
+            ),
+        ],
+    ),
+    colleagues: [
+        (
+            id: "kasia", name: "Kasia", role: Some(Strategist), likes: [Creative],
+            rumors: ["r_marta_humor"],
+            small_talk: ["Czytałeś ten raport o Gen Z? Połowa to bzdury.", "Daj mi insight, a dam ci kampanię."],
+            desk: (-4.0, -3.0),
+        ),
+        (
+            id: "bartek", name: "Bartek", role: Some(Creative), likes: [Producer],
+            rumors: ["r_marta_humor", "r_zdzislaw_tiktok"],
+            small_talk: ["Mam pomysł. Nie, czekaj, mam lepszy.", "Kiedy w końcu zrobimy coś odważnego?"],
+            desk: (-1.0, -3.0),
+        ),
+        (
+            id: "ola", name: "Ola", role: Some(Account), likes: [Strategist],
+            rumors: ["r_henryk_irony", "r_marta_awards", "r_zdzislaw_simple"],
+            small_talk: ["Klient dzwonił trzy razy przed dziesiątą.", "Tylko nie mówcie mi o nowej wersji deadline'u."],
+            desk: (2.0, -3.0),
+        ),
+        (
+            id: "marek", name: "Marek", role: Some(Producer), likes: [Account],
+            rumors: ["r_marta_celeb_true", "r_zdzislaw_simple"],
+            small_talk: ["Ile? Za ile? Na kiedy?", "Każdy pomysł jest dobry, dopóki nie zobaczysz kosztorysu."],
+            desk: (5.0, -3.0),
+        ),
+        (
+            id: "basia", name: "Pani Basia", role: None, likes: [Account, Producer],
+            rumors: ["r_ac", "r_henryk_family", "r_marta_celeb_false"],
+            small_talk: ["Kawa się skończyła, ale zamówiłam.", "Ja tu wszystko słyszę, kochanieńki."],
+            desk: (6.0, 4.0),
+        ),
+        (
+            id: "wojtek", name: "Wojtek (ex-ACD)", role: None, likes: [Creative],
+            rumors: ["r_henryk_irony", "r_henryk_family"],
+            small_talk: ["Za moich czasów pitch trwał trzy tygodnie.", "Zorzę robiłem w 2009. Długa historia."],
+            desk: (-5.0, 3.0),
+        ),
+    ],
+    rumors: [
+        (
+            id: "r_henryk_irony", truth: true, min_trust: 1,
+            text: "Prezes Zorza wyszedł z poprzedniego pitchu, kiedy agencja zażartowała z marki.",
+            reveals: Peeve(persona: "henryk", tag: "ironia"),
+        ),
+        (
+            id: "r_henryk_family", truth: true, min_trust: 0,
+            text: "Firma jest rodzinna od trzech pokoleń. Prezes ma na biurku zdjęcie dziadka przy krowie.",
+            reveals: Hot(persona: "henryk", tag: "rodzina"),
+        ),
+        (
+            id: "r_marta_awards", truth: true, min_trust: 2,
+            text: "Marta chce nagrody, zanim przejdzie do korporacji. Szuka czegoś odważnego.",
+            reveals: Hot(persona: "marta", tag: "odwaga"),
+        ),
+        (
+            id: "r_marta_humor", truth: true, min_trust: 1,
+            text: "Marta wrzuca na LinkedIna same memy.",
+            reveals: Hot(persona: "marta", tag: "humor"),
+        ),
+        (
+            id: "r_marta_celeb_false", truth: false, min_trust: 0,
+            text: "Marta uwielbia celebrytów, ostatnio wrzuciła selfie z influencerem.",
+            reveals: Hot(persona: "marta", tag: "celebryta"),
+        ),
+        (
+            id: "r_marta_celeb_true", truth: true, min_trust: 2,
+            text: "Po ostatniej kampanii z gwiazdą Marta powiedziała: nigdy więcej.",
+            reveals: Peeve(persona: "marta", tag: "celebryta"),
+        ),
+        (
+            id: "r_zdzislaw_simple", truth: true, min_trust: 1,
+            text: "Kowal podpisuje tylko to, co da się wytłumaczyć w jednym zdaniu.",
+            reveals: Hot(persona: "zdzislaw", tag: "prosty"),
+        ),
+        (
+            id: "r_zdzislaw_tiktok", truth: false, min_trust: 0,
+            text: "Kowal ponoć sam nagrywa TikToki po godzinach. Lubi eksperymenty.",
+            reveals: Hot(persona: "zdzislaw", tag: "eksperyment"),
+        ),
+        (
+            id: "r_ac", truth: true, min_trust: 0,
+            text: "Klimatyzacja w sali konferencyjnej znowu nie działa.",
+            reveals: Flavour,
+        ),
+    ],
+)
